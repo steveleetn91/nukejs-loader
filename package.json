@@ -1,0 +1,26 @@
+{
+  "name": "nukejs-loader",
+  "version": "1.0.18",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npx tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steveleetn91/nukejs-loader.git"
+  },
+  "keywords": [
+    "nukejs-loader"
+  ],
+  "author": "stevelee",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/steveleetn91/nukejs-loader/issues"
+  },
+  "homepage": "https://github.com/steveleetn91/nukejs-loader#readme",
+  "dependencies": {
+    "typescript": "^4.9.5"
+  }
+}
