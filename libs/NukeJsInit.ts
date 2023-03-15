@@ -9,10 +9,14 @@ export class NukeJsInit implements NukeJsInitInterface {
         this.data = `
         
         window.Nuke = {
-            status : {}
+            status : {},
+            page: {}
         }
         
         ` + this.data;
+
+        this.data  = this.data.replaceAll('$NukPage','window.Nuke.page');
+
         return this.data;
     }
 }

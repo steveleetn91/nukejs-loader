@@ -11,7 +11,6 @@ export class NukeLoader implements NukeLoaderInterface {
         this.data = compiler.hooks();
         this.data = compiler.texts();
         this.data = compiler.images();
-        this.data = compiler.attributes();
         this.data = compiler.events();
         this.data = compiler.component();
         this.data = compiler.commandline();

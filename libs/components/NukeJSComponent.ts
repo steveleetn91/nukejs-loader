@@ -5,12 +5,10 @@ export default class NukeJSComponent implements NukeJSComponentInterface {
         
     }
     compiler(){
-        this.data = this.data.replaceAll('<NukApp>','`<NukApp>');
-        this.data = this.data.replaceAll('</NukApp>','</NukApp>`');
-        this.data = this.data.replaceAll('<Box>','`<Box>');
-        this.data = this.data.replaceAll('</Box>','</Box>`');
-        this.data = this.data.replaceAll('click="','onclick="');
-        this.data = this.data.replaceAll("click='","onclick='");
+        this.data = this.data.replaceAll('<NukApp>','`<div>');
+        this.data = this.data.replaceAll('</NukApp>','</div>`');
+        this.data = this.data.replaceAll('<Box>','`<div>');
+        this.data = this.data.replaceAll('</Box>','</div>`');
         return this.data;
     }
 }

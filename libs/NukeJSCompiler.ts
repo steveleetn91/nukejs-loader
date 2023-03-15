@@ -1,5 +1,6 @@
 import NukeJSCommandLine from "./commandlines/NukeJSCommandLine";
 import NukeJSComponent from "./components/NukeJSComponent";
+import NukeEventsCompiler from "./events/NukeEventsCompiler";
 import NukejsHooks from "./hooks/NukejsHooks";
 import { NukeJsInit } from "./NukeJsInit";
 
@@ -8,7 +9,6 @@ interface NukeJSCompilerInterface {
     hooks(): string;
     texts(): string;
     images(): string;
-    attributes(): string;
     events(): string;
     component():string;
     commandline():string;
@@ -33,10 +33,9 @@ export default class NukeJSCompiler implements NukeJSCompilerInterface {
     images(): string {
         return this.data;
     }
-    attributes(): string {
-        return this.data;
-    }
     events(): string {
+        let events = new NukeEventsCompiler(this.data);
+        this.data = events.compiler();
         return this.data;
     }
     component() : string{
