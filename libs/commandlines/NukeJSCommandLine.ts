@@ -13,6 +13,8 @@ export default class NukeJSCommandLine implements NukeJSCommandLineInterface {
         this.data = this.data.replaceAll('</nukapp>','</div>');
         this.data = this.data.replaceAll('<box>','<div>');
         this.data = this.data.replaceAll('</box>','</div>');
+        this.data = this.data.replaceAll('&gt;','>');
+        this.data = this.data.replaceAll('&lt;','<');
         return this.data;
     }
 }
