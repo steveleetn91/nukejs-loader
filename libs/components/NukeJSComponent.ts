@@ -35,9 +35,11 @@ class NukejsCustomComponent implements NukeJSComponentInterface {
                             const nodeName : string = item2.nodeName;
                             if(!allowsElements().includes(nodeName)) {
                                 let childData = item2.innerHTML;
+                                const params = item2.getAttribute('params') ? ','+item2.getAttribute('params') : '';
+                                item2.setAttribute('params','')
                                 childData = childData.replaceAll('<Box>','<div>');
                                 childData = childData.replaceAll('</Box>','</div>');
-                                item2.innerHTML = `Nuk{${nodeName.toUpperCase()}(<Box>${childData}</Box>)}`;
+                                item2.innerHTML = `Nuk{${nodeName.toUpperCase()}(<Box>${childData}</Box>`+ params +`)}`;
                             }
                         }
                     });
