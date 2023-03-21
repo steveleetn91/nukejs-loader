@@ -26,6 +26,7 @@ export default class NukejsHooks implements NukejsHooksInterface {
         this.reRender();
         this.componentRender();
         this.setStatus();
+        this.registerCallback();
         return this.data += `
         if(window.Nuke.page.render) {
             document.body.innerHTML = window.Nuke.page.render();
@@ -68,7 +69,7 @@ export default class NukejsHooks implements NukejsHooksInterface {
         }
         return this.data += `
         window.Nuke.setStatus = function(key,value) {
-            if( window.Nuke.page && window.Nuke.page.status && window.Nuke.page.status[key] ) {
+            if( window.Nuke.page && window.Nuke.page.status && typeof window.Nuke.page.status[key] !== "undefined" ) {
                 window.Nuke.page.status[key] = value;
                 window.Nuke.ReRender();
             } else {
@@ -77,5 +78,15 @@ export default class NukejsHooks implements NukejsHooksInterface {
         }
         `;
     }
-    
+
+    registerCallback(){
+        return this.data += `
+        window.Nuke.registerCallback = function(key,callback) {
+            if(!key || !callback) {
+                return alert("WRONG! NO KEY FOR REGISTER CALLBACK");
+            }
+            window.Nuke[key.toString().toUpperCase()] = callback;
+        }
+        `;
+    }
 }

@@ -4,4 +4,5 @@ export interface NukejsHooksInterface {
     reRender() : string;
     afterRender() : string;
     componentRender():string;
+    registerCallback():string;
 }
