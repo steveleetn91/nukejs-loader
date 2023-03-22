@@ -1,23 +1,7 @@
-import getOnlyElement, { allowsElements, isNukApp } from "../helpers/NukejsHelper";
+import getOnlyElement, { allowsElements, createNukeId, isNukApp } from "../helpers/NukejsHelper";
 import NukeJSComponentInterface from "./NukeJSComponent.interface";
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-class NukejsDefaultComponent implements NukeJSComponentInterface {
-    constructor(private data: string) {
-
-    }
-    compiler() {
-        this.data = this.data.replaceAll('<NukApp>', '`<NukApp>');
-        this.data = this.data.replaceAll('</NukApp>', '</NukApp>`');
-        this.data = this.data.replaceAll('<Box>', '`<Box>');
-        this.data = this.data.replaceAll('</Box>', '</Box>`');
-        this.data = this.data.replaceAll('<nukapp>', '`<nukapp>');
-        this.data = this.data.replaceAll('</nukapp>', '</nukapp>`');
-        this.data = this.data.replaceAll('<box>', '`<box>');
-        this.data = this.data.replaceAll('</box>', '</box>`');
-        return this.data;
-    }
-}
 
 class NukejsCustomComponent implements NukeJSComponentInterface {
     constructor(private data: string) {
@@ -34,19 +18,18 @@ class NukejsCustomComponent implements NukeJSComponentInterface {
                         if(item2.nodeName) {
                             const nodeName : string = item2.nodeName;
                             if(!allowsElements().includes(nodeName)) {
-                                let childData = item2.innerHTML;
                                 const params = item2.getAttribute('params') ? ','+item2.getAttribute('params') : '';
-                                item2.setAttribute('params','')
-                                childData = childData.replaceAll('<Box>','<div>');
-                                childData = childData.replaceAll('</Box>','</div>');
-                                item2.innerHTML = `Nuk{${nodeName.toUpperCase()}(<Box>${childData}</Box>`+ params +`)}`;
-                            }
+                                item2.setAttribute('params','');
+                                item2.innerHTML = `Nuk{${nodeName.toUpperCase()}(<Box>${item2.innerHTML}</Box>`+ params +`)}`;
+                            } 
+                        }
+                        if(item2.children > 0 ) {
+                            initData(item2);
                         }
                     });
                 }
                 initData(dom.window.document.body);
-                const defaults = new NukejsDefaultComponent(dom.window.document.body.innerHTML.toString());
-                html += defaults.compiler();
+                html += dom.window.document.body.innerHTML;
             } else {
                 html += item;
             }
@@ -61,8 +44,6 @@ export default class NukeJSComponent implements NukeJSComponentInterface {
 
     }
     compiler() {
-        const defaults = new NukejsDefaultComponent(this.data);
-        this.data = defaults.compiler();
         const customs = new NukejsCustomComponent(this.data);
         this.data = customs.compiler();
         
