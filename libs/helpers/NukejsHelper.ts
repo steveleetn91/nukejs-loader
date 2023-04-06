@@ -7,7 +7,7 @@ export function isNukApp(data:string){
 export function allowsElements(){
     return ["SPAN","DIV","P","B","IMG","CANVAS","UL","LI","OL",
     "AUDIO","SOURCE","VIDEO","AUDIO","INPUT","BUTTON","LABEL","FORM","SELECT","OPTION","TEXTAREA","HR","IFRAME","NUKAPP",'BOX','A','H1','H2',
-    ,'H3','H4','H5','H6','CODE','SCRIPT',"TABLE","TR","TD","TH","THEAD","E","EM","BR"];
+    ,'H3','H4','H5','H6','CODE','SCRIPT',"TABLE","TR","TD","TH","THEAD","E","EM","BR","TBODY"];
 }
 export function createNukeId(){
     let id = () => {
