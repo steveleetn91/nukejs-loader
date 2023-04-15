@@ -5,6 +5,11 @@ export default class NukeJSCommandLine implements NukeJSCommandLineInterface {
     compiler(): string {
         this.data = this.data.replaceAll('<Print>{','${');
         this.data = this.data.replaceAll('Nuk{','${');
+        this.data = this.data.replaceAll('Nuk {','${');
+        this.data = this.data.replaceAll('<EmptyBox>','`');
+        this.data = this.data.replaceAll('</EmptyBox>','`');
+        this.data = this.data.replaceAll('<emptybox>','`');
+        this.data = this.data.replaceAll('</emptybox>','`');
         this.data = this.data.replaceAll('<NukApp','`<div');
         this.data = this.data.replaceAll('</NukApp>','</div>`');
         this.data = this.data.replaceAll('<Box','`<div');
