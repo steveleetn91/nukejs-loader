@@ -24,35 +24,23 @@ class NukejsCustomComponent implements NukeJSComponentInterface {
                                     item2.setAttribute('params', '');
                                     item2.innerHTML = `Nuk{${nodeName.toUpperCase()}(<Box>${item2.innerHTML}</Box>` + params + `)}`;
                                     // next depth 
-                                    item2.querySelectorAll("*").forEach((item3: any, index3: number) => {
-                                        if (item3.nodeName) {
-                                            const nodeName3: string = item3.nodeName;
-                                            if (!allowsElements().includes(nodeName3)) {
-                                                components.push(nodeName3);
-                                                const params3 = item3.getAttribute('params') ? ',' + item3.getAttribute('params') : '';
-                                                item3.setAttribute('params', '');
-                                                item3.innerHTML = `Nuk{${nodeName3.toUpperCase()}(<Box>${item3.innerHTML}</Box>` + params3 + `)}`;
-                                                const miniLoop = (item : any,max : number) => {
-                                                    if(max === 5) {
-                                                        return;
-                                                    }    
-                                                    item.querySelectorAll("*").forEach((item: any, index: number) => {
-                                                        if (item.nodeName) {
-                                                            const nodeName4: string = item.nodeName;
-                                                            if (!allowsElements().includes(nodeName4)) {
-                                                                components.push(nodeName4);
-                                                                const params4 = item.getAttribute('params') ? ',' + item.getAttribute('params') : '';
-                                                                item.setAttribute('params', '');
-                                                                item.innerHTML = `Nuk{${nodeName4.toUpperCase()}(<Box>${item.innerHTML}</Box>` + params4 + `)}`;
-                                                            }
-                                                            miniLoop(item,max+1);
-                                                        }
-                                                    });
+                                    const miniLoop = (miniLoopitem : any,max : number) => {
+                                        if(max >= 3) {
+                                            return; 
+                                        }    
+                                        miniLoopitem.querySelectorAll("*").forEach((miniLoopitem: any, miniLoopitemindex: number) => {
+                                            if (miniLoopitem.nodeName) {
+                                                if (!allowsElements().includes(miniLoopitem.nodeName)) {
+                                                    components.push(miniLoopitem.nodeName);
+                                                    const params = miniLoopitem.getAttribute('params') ? ',' + miniLoopitem.getAttribute('params') : '';
+                                                    miniLoopitem.setAttribute('params', '');
+                                                    miniLoopitem.innerHTML = `Nuk{${miniLoopitem.nodeName.toUpperCase()}(<Box>${miniLoopitem.innerHTML}</Box>` 
+                                                    + params + `)}`;
                                                 }
-                                                miniLoop(item3,1);
                                             }
-                                        }
-                                    });
+                                        });
+                                    }
+                                    miniLoop(item2,1);
                                 }
                             }
                         });

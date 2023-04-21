@@ -1,6 +1,6 @@
 {
   "name": "nukejs-loader",
-  "version": "1.0.65",
+  "version": "1.0.85",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
