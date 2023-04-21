@@ -32,18 +32,24 @@ class NukejsCustomComponent implements NukeJSComponentInterface {
                                                 const params3 = item3.getAttribute('params') ? ',' + item3.getAttribute('params') : '';
                                                 item3.setAttribute('params', '');
                                                 item3.innerHTML = `Nuk{${nodeName3.toUpperCase()}(<Box>${item3.innerHTML}</Box>` + params3 + `)}`;
-                                                // next depth 
-                                                item3.querySelectorAll("*").forEach((item4: any, index4: number) => {
-                                                    if (item4.nodeName) {
-                                                        const nodeName4: string = item4.nodeName;
-                                                        if (!allowsElements().includes(nodeName4)) {
-                                                            components.push(nodeName4);
-                                                            const params4 = item4.getAttribute('params') ? ',' + item4.getAttribute('params') : '';
-                                                            item4.setAttribute('params', '');
-                                                            item4.innerHTML = `Nuk{${nodeName4.toUpperCase()}(<Box>${item4.innerHTML}</Box>` + params4 + `)}`;
+                                                const miniLoop = (item : any,max : number) => {
+                                                    if(max === 5) {
+                                                        return;
+                                                    }    
+                                                    item.querySelectorAll("*").forEach((item: any, index: number) => {
+                                                        if (item.nodeName) {
+                                                            const nodeName4: string = item.nodeName;
+                                                            if (!allowsElements().includes(nodeName4)) {
+                                                                components.push(nodeName4);
+                                                                const params4 = item.getAttribute('params') ? ',' + item.getAttribute('params') : '';
+                                                                item.setAttribute('params', '');
+                                                                item.innerHTML = `Nuk{${nodeName4.toUpperCase()}(<Box>${item.innerHTML}</Box>` + params4 + `)}`;
+                                                            }
+                                                            miniLoop(item,max+1);
                                                         }
-                                                    }
-                                                });
+                                                    });
+                                                }
+                                                miniLoop(item3,1);
                                             }
                                         }
                                     });
