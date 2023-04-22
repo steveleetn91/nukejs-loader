@@ -25,9 +25,9 @@ class NukejsCustomComponent implements NukeJSComponentInterface {
                                     item2.innerHTML = `Nuk{${nodeName.toUpperCase()}(<Box>${item2.innerHTML}</Box>` + params + `)}`;
                                     // next depth 
                                     const miniLoop = (miniLoopitem : any,max : number) => {
-                                        // if(max >= 3) {
-                                        //     return; 
-                                        // }    
+                                        if(max >= 5) {
+                                            return; 
+                                        }    
                                         miniLoopitem.querySelectorAll("*").forEach((miniLoopitem: any, miniLoopitemindex: number) => {
                                             if (miniLoopitem.nodeName) {
                                                 if (!allowsElements().includes(miniLoopitem.nodeName)) {
@@ -36,12 +36,12 @@ class NukejsCustomComponent implements NukeJSComponentInterface {
                                                     miniLoopitem.setAttribute('params', '');
                                                     miniLoopitem.innerHTML = `Nuk{${miniLoopitem.nodeName.toUpperCase()}(<Box>${miniLoopitem.innerHTML}</Box>` 
                                                     + params + `)}`;
+                                                    miniLoop(miniLoopitem,max + 1);
                                                 }
-                                                //miniLoop(item2,max + 1);
                                             }
                                         });
                                     }
-                                    miniLoop(item2,1);
+                                    miniLoop(item2,0);
                                 }
                             }
                         });
