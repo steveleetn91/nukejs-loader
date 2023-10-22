@@ -1,3 +1,3 @@
 export default interface NukeEventsCompilerInterface {
-    compiler() : string;
+    compiler() : Promise<string>;
 }

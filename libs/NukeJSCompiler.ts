@@ -5,19 +5,19 @@ import NukejsHooks from "./hooks/NukejsHooks";
 import { NukeJsInit } from "./NukeJsInit";
 
 interface NukeJSCompilerInterface {
-    init(): string;
+    init(): Promise<string>;
     hooks(): string;
     texts(): string;
     images(): string;
-    events(): string;
+    events(): Promise<string>;
     component():string;
     commandline():string;
 }
 export default class NukeJSCompiler implements NukeJSCompilerInterface {
     constructor(private data : string) {}
-    init(): string {
+    async init(): Promise<string> {
         let initData = new NukeJsInit(this.data);
-        this.data = initData.compier();
+        this.data = await initData.compier();
         return this.data;
     }
     hooks(): string {
@@ -33,9 +33,9 @@ export default class NukeJSCompiler implements NukeJSCompilerInterface {
     images(): string {
         return this.data;
     }
-    events(): string {
+    async events(): Promise<string> {
         let events = new NukeEventsCompiler(this.data);
-        this.data = events.compiler();
+        this.data = await events.compiler();
         return this.data;
     }
     component() : string{

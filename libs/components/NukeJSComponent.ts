@@ -4,6 +4,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
 class NukejsCustomComponent implements NukeJSComponentInterface {
+    private maxDepth = 5;
     constructor(private data: string) {
 
     }
@@ -20,12 +21,13 @@ class NukejsCustomComponent implements NukeJSComponentInterface {
                                 const nodeName: string = item2.nodeName;
                                 if (!allowsElements().includes(nodeName)) {
                                     components.push(nodeName);
+                                    // params
                                     const params = item2.getAttribute('params') ? ',' + item2.getAttribute('params') : '';
                                     item2.setAttribute('params', '');
                                     item2.innerHTML = `Nuk{${nodeName.toUpperCase()}(<Box>${item2.innerHTML}</Box>` + params + `)}`;
                                     // next depth 
                                     const miniLoop = (miniLoopitem : any,max : number) => {
-                                        if(max >= 5) {
+                                        if(max >= this.maxDepth) {
                                             return; 
                                         }    
                                         miniLoopitem.querySelectorAll("*").forEach((miniLoopitem: any, miniLoopitemindex: number) => {

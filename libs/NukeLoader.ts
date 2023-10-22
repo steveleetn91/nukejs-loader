@@ -5,15 +5,15 @@ export class NukeLoader implements NukeLoaderInterface {
     constructor(private data : string) {
        
     }
-    render() : string{
+    async render() : Promise<string>{
         const compiler : NukeJSCompiler = new NukeJSCompiler(this.data);
-        this.data = compiler.init();
-        this.data = compiler.hooks();
-        this.data = compiler.texts();
-        this.data = compiler.images();
-        this.data = compiler.component();
-        this.data = compiler.events();
-        this.data = compiler.commandline();
+        this.data = await compiler.init();
+        this.data = await compiler.events();
+        this.data = await compiler.hooks();
+        this.data = await compiler.texts();
+        this.data = await compiler.images();
+        this.data = await compiler.component();
+        this.data = await compiler.commandline();
         return this.data;
     }
 }
